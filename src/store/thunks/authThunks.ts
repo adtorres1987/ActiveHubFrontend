@@ -47,6 +47,7 @@ export const register = (registerDto: RegisterDto) => async (dispatch: AppDispat
 export const renewToken = () => async (dispatch: AppDispatch) => {
   try {
     const response = await renewTokenUseCase.execute();
+    console.log('Renew token response:', response);
     dispatch(loginSuccess(response));
     return { success: true };
   } catch (error: any) {

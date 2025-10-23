@@ -7,7 +7,7 @@ import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
 import { Card } from '../../components/ui/Card';
 import { ROUTES } from '../../../helpers/constants';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 export const LoginPage = () => {
   const { login, loading } = useAuth();
@@ -39,6 +39,8 @@ export const LoginPage = () => {
           Ingresa tus credenciales para acceder
         </p>
       </div>
+
+      <ToastContainer />
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <Input
