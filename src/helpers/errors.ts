@@ -29,9 +29,31 @@ export class CustomError extends Error {
 }
 
 export const handleApiError = (error: any): string => {
+  console.error('API Error:', error);
+
   if (error.response) {
     // Error from API
-    return error.response.data?.message || error.response.data?.error || 'Error en el servidor';
+    const data = error.response.data;
+    console.error('Response data:', data);
+
+    // Handle different response formats
+    if (typeof data === 'string') {
+      return data;
+    }
+
+    if (data?.message) {
+      return typeof data.message === 'string' ? data.message : JSON.stringify(data.message);
+    }
+
+    if (data?.error) {
+      return typeof data.error === 'string' ? data.error : JSON.stringify(data.error);
+    }
+
+    if (data?.errors && Array.isArray(data.errors)) {
+      return data.errors.join(', ');
+    }
+
+    return 'Error en el servidor';
   } else if (error.request) {
     // Request made but no response
     return 'No se pudo conectar con el servidor';

@@ -1,11 +1,11 @@
-import { CreateUserDto } from '../dtos/user/create-user.dto';
-import { UpdateUserDto } from '../dtos/user/update-user.dto';
-import { UserEntity } from '../entities/user.entity';
+import { CreateUserDto, CreateUserResponse } from '../dtos/user/create-user.dto';
+import { UpdateUserDto, UpdateUserResponse } from '../dtos/user/update-user.dto';
+import { GetUsersResponse } from '../dtos/user/user-list.dto';
 
 export abstract class UserRepository {
-  abstract getAll(): Promise<UserEntity[]>;
-  abstract getById(id: number): Promise<UserEntity>;
-  abstract create(dto: CreateUserDto): Promise<UserEntity>;
-  abstract update(id: number, dto: UpdateUserDto): Promise<UserEntity>;
-  abstract delete(id: number): Promise<void>;
+  abstract getAll(page: number, limit: number): Promise<GetUsersResponse>;
+  abstract getById(id: number): Promise<UpdateUserResponse>;
+  abstract create(dto: CreateUserDto): Promise<CreateUserResponse>;
+  abstract update(id: number, dto: UpdateUserDto): Promise<UpdateUserResponse>;
+  abstract delete(id: number): Promise<UpdateUserResponse>;
 }

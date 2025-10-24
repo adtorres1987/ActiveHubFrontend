@@ -5,10 +5,11 @@ import { ROUTES, STORAGE_KEYS } from '../../helpers/constants';
 
 export const PrivateRoute = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
-  const hasToken = localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);
+  const hasAccessToken = localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);
+  const hasRefreshToken = localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN);
 
   // User must be authenticated OR have both tokens in localStorage
-  if (!isAuthenticated && !hasToken) {
+  if (!isAuthenticated && (!hasAccessToken || !hasRefreshToken)) {
     return <Navigate to={ROUTES.LOGIN} replace />;
   }
 
